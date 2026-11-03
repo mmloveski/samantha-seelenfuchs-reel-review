@@ -42,14 +42,24 @@
     .progress { font-size:14px; font-weight:800; color:var(--muted); white-space:nowrap; }
     .bar { height:7px; background:#d9e5da; border-radius:99px; overflow:hidden; margin-bottom:22px; }
     .bar span { display:block; height:100%; background:var(--orange); transition:width .25s ease; }
-    .focuscard { display:grid; grid-template-columns:minmax(260px,390px) minmax(250px,1fr); gap:clamp(22px,4vw,54px); align-items:center; background:white; border:1px solid #dbe5da; border-radius:24px; padding:clamp(16px,3vw,32px); box-shadow:0 18px 55px #173b3214; }
+    .focuscard { display:grid; grid-template-columns:minmax(260px,390px) minmax(0,1fr); gap:clamp(22px,4vw,54px); align-items:start; background:white; border:1px solid #dbe5da; border-radius:24px; padding:clamp(16px,3vw,32px); box-shadow:0 18px 55px #173b3214; }
     .focuscard.leave { animation:slideaway .24s ease-in forwards; }
     @keyframes slideaway { to { opacity:0; transform:translateX(35px) rotate(3deg); } }
     .focusimg { display:block; width:100%; aspect-ratio:9/16; max-height:67svh; object-fit:contain; background:#dce6dd; border-radius:15px; box-shadow:0 8px 24px #173b3223; }
     .focusid { display:inline-block; background:var(--forest); color:white; padding:8px 12px; border-radius:9px; font-size:14px; font-weight:900; letter-spacing:.08em; }
     .focusep { color:var(--muted); font-size:14px; font-weight:700; margin:13px 0 10px; }
-    .focustext { font-size:clamp(24px,3vw,38px); line-height:1.13; font-weight:900; letter-spacing:-.035em; margin:0 0 25px; }
-    .instruction { background:#eff5ed; border-left:4px solid var(--orange); padding:15px 16px; border-radius:0 10px 10px 0; line-height:1.45; font-size:14px; color:#405b4d; margin:0 0 22px; }
+    .focustext { font-size:clamp(23px,2.6vw,34px); line-height:1.13; font-weight:900; letter-spacing:-.035em; margin:0 0 16px; }
+    .focusbody { min-width:0; }
+    .chatlabel { font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:var(--muted); margin:0 0 9px; }
+    .chat { display:flex; flex-direction:column; gap:12px; background:#f4f7f2; border:1px solid #e2e9df; border-radius:15px; padding:16px; max-height:39svh; min-height:190px; overflow-y:auto; overscroll-behavior:contain; }
+    .message { max-width:88%; border-radius:16px; padding:11px 14px; box-shadow:0 2px 8px #173b320c; }
+    .message.guest { align-self:flex-start; background:white; border-bottom-left-radius:5px; }
+    .message.samantha { align-self:flex-end; background:var(--mint); border-bottom-right-radius:5px; }
+    .sender { display:block; font-size:12px; font-weight:900; margin:0 0 5px; color:#8b4c21; }
+    .message.samantha .sender { color:#23604b; }
+    .message p { margin:0; font-size:14px; line-height:1.48; overflow-wrap:anywhere; }
+    .transcriptnote { color:var(--muted); font-size:11px; line-height:1.4; margin:7px 0 13px; }
+    .instruction { background:#eff5ed; border-left:4px solid var(--orange); padding:12px 14px; border-radius:0 10px 10px 0; line-height:1.4; font-size:13px; color:#405b4d; margin:0 0 14px; }
     .next { width:100%; }
     .subactions { display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; }
     .textbtn { border:0; background:none; padding:4px 0; color:var(--forest); font-size:13px; font-weight:800; text-decoration:underline; }
@@ -83,8 +93,9 @@
       .roundhead { align-items:flex-start; }
       .progress { white-space:normal; text-align:right; }
       .focuscard { grid-template-columns:1fr; gap:20px; }
-      .focusimg { max-height:54svh; width:auto; max-width:100%; margin:auto; }
-      .focustext { font-size:26px; margin-bottom:18px; }
+      .focusimg { max-height:46svh; width:auto; max-width:100%; margin:auto; }
+      .focustext { font-size:25px; margin-bottom:16px; }
+      .chat { max-height:50svh; }
       .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
       .tilebody { padding:10px; }
       .search { max-width:none; }
@@ -116,10 +127,13 @@
       <div class="bar"><span id="progress-fill"></span></div>
       <article class="focuscard" id="focuscard">
         <img class="focusimg" id="focusimg" alt="" width="720" height="1280">
-        <div>
+        <div class="focusbody">
           <span class="focusid" id="focusid"></span>
           <p class="focusep" id="focusep"></p>
           <h2 class="focustext" id="focustext"></h2>
+          <p class="chatlabel">Gespräch im Reel</p>
+          <div class="chat" id="conversation" aria-label="Transkript der Reel-Konversation"></div>
+          <p class="transcriptnote">Automatisches Transkript der geschnittenen Hörprobe. Bei strittigen Worten gilt der O-Ton.</p>
           <p class="instruction">Sprich deine Freigabe oder deinen Änderungswunsch mit dieser Reel-ID in deine Handy-AI. Drücke erst danach auf „Fertig“.</p>
           <button class="primary next" id="next" type="button">Fertig – nächste Hook →</button>
           <div class="subactions"><button class="textbtn" id="round-home" type="button">Zur Startseite</button><a class="textbtn" id="linear-link" target="_blank" rel="noopener noreferrer">Linear-Aufgabe öffnen ↗</a></div>
@@ -138,7 +152,7 @@
     <section class="overview" id="overview" hidden>
       <p class="eyebrow">Übersicht</p><h1>Alle offenen Hooks</h1>
       <p class="overviewintro">Hier siehst du die Hooks, die in diesem Browser noch nicht als bearbeitet markiert sind. Wähle eine Folge oder öffne einen Hook direkt.</p>
-      <div class="toolbar"><nav class="filters" id="filters" aria-label="Folge auswählen"></nav><input class="search" id="search" type="search" placeholder="Hook oder Reel-ID suchen" aria-label="Hooks durchsuchen"></div>
+      <div class="toolbar"><nav class="filters" id="filters" aria-label="Folge auswählen"></nav><input class="search" id="search" type="search" placeholder="Hook, Reel-ID oder Inhalt suchen" aria-label="Hooks durchsuchen"></div>
       <p class="result" id="result" aria-live="polite"></p><div class="grid" id="grid"></div>
     </section>
   </main>
@@ -160,8 +174,8 @@
     function showMode(value){mode=value;for(const id of ['home','round','complete','overview'])$(id).hidden=id!==value;$('nav-home').hidden=value!=='overview';$('nav-overview').hidden=value==='overview';window.scrollTo({top:0,behavior:'instant'});render()}
     function render(){if(mode==='home')renderHome();if(mode==='round')renderRound();if(mode==='overview')renderOverview()}
     function renderHome(){const open=pending(),total=scoped().length;const scope=episode==='all'?'allen Folgen':`Folge ${episode}`;$('home-count').textContent=`${open.length} offene Hooks aus ${scope}`;$('start').disabled=!open.length;$('start').textContent=open.length?'Feedbackrunde starten →':'Alle Hooks dieser Auswahl bearbeitet';$('home-undo').hidden=!Object.keys(completed).some(id=>scoped().some(r=>r.id===id));const previews=open.slice(0,3);$('previewstack').innerHTML=previews.map(r=>`<img src="${r.image}" alt="">`).join('')}
-    function renderRound(){const open=pending();if(!open.length){showMode('complete');return}let index=open.findIndex(r=>r.id===currentId);if(index<0){index=0;currentId=open[0].id}const r=open[index];$('focusimg').src=r.image;$('focusimg').alt=`Visueller Hook ${r.id}`;$('focusid').textContent=r.id;$('focusep').textContent=`Folge ${r.episode} · ${r.title}`;$('focustext').innerHTML=r.lines.map(escapeHtml).join('<br>');$('linear-link').href=r.issue;const total=scoped().length,done=total-open.length;$('round-progress').textContent=`${done+1} von ${total} · ${open.length} offen`;$('progress-fill').style.width=`${total?done/total*100:100}%`}
-    function renderOverview(){const filters=$('filters');filters.innerHTML=validEpisodes.map(n=>`<button type="button" class="filter" data-episode="${n}" aria-pressed="${n===episode}">${n==='all'?'Alle':`Folge ${n}`}</button>`).join('');const q=$('search').value.trim().toLocaleLowerCase('de');const open=pending().filter(r=>!q||[r.id,r.title,...r.lines].join(' ').toLocaleLowerCase('de').includes(q));$('result').textContent=`${open.length} offene Hooks angezeigt`;$('grid').innerHTML=open.length?open.map(r=>`<article class="tile"><img src="${r.image}" alt="Visueller Hook ${r.id}" width="720" height="1280" loading="lazy"><div class="tilebody"><span class="tileid">${r.id}</span><p class="tiletext">${r.lines.map(escapeHtml).join('<br>')}</p><button type="button" class="tilebutton" data-open="${r.id}">Diesen Hook ansehen →</button></div></article>`).join(''):'<p class="empty">Hier sind keine offenen Hooks mehr.</p>'}
+    function renderRound(){const open=pending();if(!open.length){showMode('complete');return}let index=open.findIndex(r=>r.id===currentId);if(index<0){index=0;currentId=open[0].id}const r=open[index];$('focusimg').src=r.image;$('focusimg').alt=`Visueller Hook ${r.id}`;$('focusid').textContent=r.id;$('focusep').textContent=`Folge ${r.episode} · ${r.title}`;$('focustext').innerHTML=r.lines.map(escapeHtml).join('<br>');$('conversation').innerHTML=r.conversation.map(t=>`<div class="message ${t.speaker==='Samantha'?'samantha':'guest'}"><span class="sender">${escapeHtml(t.speaker)}</span><p>${escapeHtml(t.text)}</p></div>`).join('');$('conversation').scrollTop=0;$('linear-link').href=r.issue;const total=scoped().length,done=total-open.length;$('round-progress').textContent=`${done+1} von ${total} · ${open.length} offen`;$('progress-fill').style.width=`${total?done/total*100:100}%`}
+    function renderOverview(){const filters=$('filters');filters.innerHTML=validEpisodes.map(n=>`<button type="button" class="filter" data-episode="${n}" aria-pressed="${n===episode}">${n==='all'?'Alle':`Folge ${n}`}</button>`).join('');const q=$('search').value.trim().toLocaleLowerCase('de');const open=pending().filter(r=>!q||[r.id,r.title,...r.lines,...r.conversation.map(t=>t.text)].join(' ').toLocaleLowerCase('de').includes(q));$('result').textContent=`${open.length} offene Hooks angezeigt`;$('grid').innerHTML=open.length?open.map(r=>`<article class="tile"><img src="${r.image}" alt="Visueller Hook ${r.id}" width="720" height="1280" loading="lazy"><div class="tilebody"><span class="tileid">${r.id}</span><p class="tiletext">${r.lines.map(escapeHtml).join('<br>')}</p><button type="button" class="tilebutton" data-open="${r.id}">Diesen Hook ansehen →</button></div></article>`).join(''):'<p class="empty">Hier sind keine offenen Hooks mehr.</p>'}
     function start(id){const open=pending();if(!open.length){showMode('complete');return}currentId=id&&open.some(r=>r.id===id)?id:open[0].id;showMode('round')}
     function finishCurrent(){if(transitioning||!currentId)return;const id=currentId;const before=pending();const oldIndex=before.findIndex(r=>r.id===id);transitioning=true;$('next').disabled=true;$('focuscard').classList.add('leave');setTimeout(()=>{completed[id]=new Date().toISOString();saveCompleted();const after=pending();currentId=after[oldIndex]?.id||after[0]?.id||null;$('focuscard').classList.remove('leave');$('next').disabled=false;transitioning=false;if(mode!=='round'){render();return}if(!after.length)showMode('complete');else renderRound()},240)}
     function undo(){const candidates=Object.entries(completed).filter(([id])=>scoped().some(r=>r.id===id)).sort((a,b)=>String(b[1]).localeCompare(String(a[1])));if(!candidates.length)return;delete completed[candidates[0][0]];saveCompleted();showMode('home')}

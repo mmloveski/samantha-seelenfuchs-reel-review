@@ -1,14 +1,15 @@
 # Seelenfuchs · Hook-Review-Seite
 
-Öffentliche, temporäre GitHub-Pages-Vorschau für die visuelle Hook-Freigabe. Dieses Repository enthält **nur** die statische Webseite und verkleinerte Review-Standbilder, keine Podcastvideos, Transkripte, Schnittdateien, internen Feedback-Notizen oder PDFs. Das lokale Hauptprojekt bleibt außerhalb von Git.
+Öffentliche, temporäre GitHub-Pages-Vorschau für die visuelle Hook-Freigabe. Dieses Repository enthält **nur** die statische Webseite, verkleinerte Review-Standbilder und die gesprochenen Reel-Ausschnitte als Transkript, keine Podcastvideos, vollständigen Folgentranskripte, Schnittdateien, internen Feedback-Notizen oder PDFs. Das lokale Hauptprojekt bleibt außerhalb von Git.
 
-Die Startseite führt Samantha nacheinander durch die noch offenen Hooks. „Fertig – nächste Hook“ blendet den gerade gesichteten Hook auf **diesem Browser/Gerät** aus; die Übersicht oben rechts zeigt ebenfalls nur offene Hooks. Bereits von Samantha freigegebene Hooks werden beim Seitenbau entfernt. Die Webseite sammelt und sendet **kein Feedback**: Samantha spricht es mit der jeweiligen Reel-ID in ihre Handy-AI, die es nach Linear synchronisiert. Ein anderes Gerät übernimmt den lokalen Seitenfortschritt nicht automatisch.
+Die Startseite führt Samantha nacheinander durch die noch offenen Hooks. Neben dem Hook-Bild steht die geschnittene Konversation als Chat: Gast links, Samantha rechts. Die Texte werden aus den finalen Hörproben-Transkripten und den dokumentierten Sprecherabschnitten erzeugt; automatische Worterkennung kann im Detail fehlerhaft sein. „Fertig – nächste Hook“ blendet den gerade gesichteten Hook auf **diesem Browser/Gerät** aus; die Übersicht oben rechts zeigt ebenfalls nur offene Hooks. Bereits von Samantha freigegebene Hooks werden beim Seitenbau entfernt. Die Webseite sammelt und sendet **kein Feedback**: Samantha spricht es mit der jeweiligen Reel-ID in ihre Handy-AI, die es nach Linear synchronisiert. Ein anderes Gerät übernimmt den lokalen Seitenfortschritt nicht automatisch.
 
 ## Aktualisieren
 
 Im übergeordneten Projektordner:
 
 ```sh
+python3 04-Werkzeuge/build_reel_review_conversations.py
 python3 04-Werkzeuge/build_hook_review_site.py
 git -C 09-Hook-Review-Seite add docs
 git -C 09-Hook-Review-Seite commit -m "Update hook review"
