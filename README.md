@@ -2,6 +2,8 @@
 
 Öffentliche, temporäre GitHub-Pages-Vorschau für die visuelle Hook-Freigabe. Dieses Repository enthält **nur** die statische Webseite und verkleinerte Review-Standbilder, keine Podcastvideos, Transkripte, Schnittdateien, internen Feedback-Notizen oder PDFs. Das lokale Hauptprojekt bleibt außerhalb von Git.
 
+Die Startseite führt Samantha nacheinander durch die noch offenen Hooks. „Fertig – nächste Hook“ blendet den gerade gesichteten Hook auf **diesem Browser/Gerät** aus; die Übersicht oben rechts zeigt ebenfalls nur offene Hooks. Bereits von Samantha freigegebene Hooks werden beim Seitenbau entfernt. Die Webseite sammelt und sendet **kein Feedback**: Samantha spricht es mit der jeweiligen Reel-ID in ihre Handy-AI, die es nach Linear synchronisiert. Ein anderes Gerät übernimmt den lokalen Seitenfortschritt nicht automatisch.
+
 ## Aktualisieren
 
 Im übergeordneten Projektordner:
